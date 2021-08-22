@@ -533,27 +533,27 @@ public class SystemVideoPlayer extends AppCompatActivity implements View.OnClick
      * 跳转到万能播放器
      */
     private void startVitamioPlayer() {
-//
-//        if(videoview != null){
-//            videoview.stopPlayback();
-//        }
-//
-//
-//        Intent intent = new Intent(this, VitamioVideoPlayer.class);
-//        if(mediaItems != null && mediaItems.size() >0){
-//
-//            Bundle bundle = new Bundle();
-//            bundle.putSerializable("videolist", mediaItems);
-//            intent.putExtras(bundle);
-//            intent.putExtra("position", position);
-//
-//        }else if(uri != null){
-//            intent.setData(uri);//文件
-//        }
-//
-//        startActivity(intent);
-//
-//        finish();
+
+        if(videoview != null){
+            videoview.stopPlayback();
+        }
+
+
+        Intent intent = new Intent(this, VitamioVideoPlayer.class);
+        if(mediaItems != null && mediaItems.size() >0){
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("videolist", mediaItems);
+            intent.putExtras(bundle);
+            intent.putExtra("position", position);
+
+        }else if(uri != null){
+            intent.setData(uri);//文件
+        }
+
+        startActivity(intent);
+
+        finish();
 
     }
 
