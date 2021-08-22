@@ -1,0 +1,4 @@
+include ':vitamio'
+include ':uri'
+include ':app'
+rootProject.name = "MobilePlayer"

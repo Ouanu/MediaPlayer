@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MobilePlayer</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <!--    <string name="start">&#xe620;</string>-->
+    <!--    <string name="stop">&#xe621;</string>-->
+    <!--    <string name="more">&#xe622;</string>-->
+    <!--    <string name="download">&#xe623;</string>-->
+    <!--    <string name="search">&#xe615;</string>-->
+    <!--    <string name="unfold">&#xe618;</string>-->
+
+</resources>
