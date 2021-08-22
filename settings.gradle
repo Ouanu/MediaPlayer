@@ -1,4 +1,6 @@
 include ':vitamio'
+include ':vitamio'
+include ':vitamio'
 include ':uri'
 include ':app'
 rootProject.name = "MobilePlayer"

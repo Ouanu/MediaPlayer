@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
+
+<!--  <project version="4">-->
+<project xmlns="http://maven.apache.org/POM/4.0.0">
   <component name="ChangeListManager">
     <list default="true" id="01b5d24a-435d-48a5-b719-dc01626456be" name="默认变更列表" comment="" />
     <option name="SHOW_DIALOG" value="false" />

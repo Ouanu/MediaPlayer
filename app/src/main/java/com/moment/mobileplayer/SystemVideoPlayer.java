@@ -1,6 +1,7 @@
 package com.moment.mobileplayer;
 
 
+import android.app.Activity;
 import android.content.*;
 
 import android.media.AudioManager;
@@ -22,6 +23,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.moment.mobileplayer.domain.MediaItem;
 import com.moment.mobileplayer.utils.Utils;
@@ -31,7 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class SystemVideoPlayer extends AppCompatActivity implements View.OnClickListener {
+public class SystemVideoPlayer extends Activity implements View.OnClickListener {
     /**
      * 进度更新
      */
@@ -258,7 +260,7 @@ public class SystemVideoPlayer extends AppCompatActivity implements View.OnClick
             updateVolume(currentVolume);
         } else if (v == btnSwitchPlayer) {
             // Handle clicks for btnSwitchPlayer
-//            showSwichPlayerDialog();
+            showSwichPlayerDialog();
         } else if (v == btnVideoExit) {
             // Handle clicks for btnVideoExit
             finish();
@@ -284,26 +286,26 @@ public class SystemVideoPlayer extends AppCompatActivity implements View.OnClick
         handler.sendEmptyMessageDelayed(HIDE_MEDIACONTROLLER, 5000);
     }
 
-//    private void showSwichPlayerDialog() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("提示");
-//        builder.setMessage("当前使用系统播放器播放，是否切换到万能播放器播放视频！");
-//        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
+    private void showSwichPlayerDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示");
+        builder.setMessage("当前使用系统播放器播放，是否切换到万能播放器播放视频！");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 //                if(mediaItems != null&&mediaItems.size()>0){
 //                    MediaItem mediaItem = mediaItems.get(position);
 //                    CacheUtils.putInt(SystemVideoPlayer.this,mediaItem.getData(),videoview.getCurrentPosition());
 //                }else if(uri != null){
 //                    CacheUtils.putInt(SystemVideoPlayer.this,uri.toString(), (int) videoview.getCurrentPosition());
 //                }
-//
+
 //                startVitamioPlayer();
-//            }
-//        });
-//        builder.setNegativeButton("取消",null);
-//        builder.show();
-//    }
+            }
+        });
+        builder.setNegativeButton("取消",null);
+        builder.show();
+    }
 
     private void startAndPause() {
         if (videoview.isPlaying()) {
@@ -501,7 +503,7 @@ public class SystemVideoPlayer extends AppCompatActivity implements View.OnClick
             public boolean onError(MediaPlayer mp, int what, int extra) {
 //                Toast.makeText(SystemVideoPlayer.this, "播放出错了", Toast.LENGTH_SHORT).show();
                 //1.播放不支持的视频格式--跳转到万能播放器继续播放
-                startVitamioPlayer();
+//                startVitamioPlayer();
                 //2.播放网络视频的过程中-网络中断 - 重新播放
                 //3.视频文件中间部分有缺损---把下载模块解决掉
                 return true;
@@ -532,30 +534,30 @@ public class SystemVideoPlayer extends AppCompatActivity implements View.OnClick
     /**
      * 跳转到万能播放器
      */
-    private void startVitamioPlayer() {
-
-        if(videoview != null){
-            videoview.stopPlayback();
-        }
-
-
-        Intent intent = new Intent(this, VitamioVideoPlayer.class);
-        if(mediaItems != null && mediaItems.size() >0){
-
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("videolist", mediaItems);
-            intent.putExtras(bundle);
-            intent.putExtra("position", position);
-
-        }else if(uri != null){
-            intent.setData(uri);//文件
-        }
-
-        startActivity(intent);
-
-        finish();
-
-    }
+//    private void startVitamioPlayer() {
+//
+//        if(videoview != null){
+//            videoview.stopPlayback();
+//        }
+//
+//
+//        Intent intent = new Intent(this, SystemVideoPlayer.class);
+//        if(mediaItems != null && mediaItems.size() >0){
+//
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("videolist", mediaItems);
+//            intent.putExtras(bundle);
+//            intent.putExtra("position", position);
+//
+//        }else if(uri != null){
+//            intent.setData(uri);//文件
+//        }
+//
+//        startActivity(intent);
+//
+//        finish();
+//
+//    }
 
     class MyOnInfoListener implements MediaPlayer.OnInfoListener {
 

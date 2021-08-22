@@ -33,7 +33,7 @@
                 android:name=".SystemVideoPlayer"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:screenOrientation="landscape"
-                android:theme="@style/NoTitleFullscreen"
+                android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
                 android:usesCleartextTraffic="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -64,18 +64,7 @@
                 <data android:mimeType="video/3gpp2"/>
             </intent-filter>
         </activity>
-        <activity android:name=".VitamioVideoPlayer"
-                  android:configChanges="keyboardHidden|orientation|screenSize"
-                  android:screenOrientation="landscape"
-                  android:theme="@style/NoTitleFullscreen"
-                  android:usesCleartextTraffic="true"/>
-<!--         Don't forgot InitActivity -->
-        <activity
-                android:name="io.vov.vitamio.activity.InitActivity"
-                android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
-                android:launchMode="singleTop"
-                android:theme="@android:style/Theme.NoTitleBar"
-                android:windowSoftInputMode="stateAlwaysHidden" />
+
 
     </application>
 
