@@ -23,6 +23,8 @@ import com.moment.mobileplayer.utils.Utils;
 import java.util.ArrayList;
 
 
+
+
 // 本地视频页面
 public class VideoPager extends BasePager {
 
