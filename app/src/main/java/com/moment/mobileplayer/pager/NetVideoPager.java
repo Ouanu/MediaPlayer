@@ -2,21 +2,24 @@ package com.moment.mobileplayer.pager;
 
 import android.content.Context;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
+
 import android.view.View;
-import android.media.MediaPlayer;
+
 
 import android.view.ViewGroup;
 import android.widget.*;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
+
 import com.moment.mobileplayer.R;
+
 import com.moment.mobileplayer.SystemVideoPlayer;
 import com.moment.mobileplayer.base.BasePager;
 import com.moment.mobileplayer.domain.MediaItem;
 import com.moment.mobileplayer.utils.URL;
-import com.moment.mobileplayer.view.VideoView;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +30,7 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+
 
 
 // 网络视频页面
@@ -50,6 +54,21 @@ public class NetVideoPager extends BasePager {
         lv_video_pager = view.findViewById(R.id.lv_video_pager);
         tv_nomedia = view.findViewById(R.id.tv_nomedia);
         pb_loading = view.findViewById(R.id.pb_loading);
+
+        // 设置点击事件
+        lv_video_pager.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                // 传视频列表
+                Intent intent = new Intent(context, SystemVideoPlayer.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("videolist", mediaItems);
+                intent.putExtras(bundle);
+                intent.putExtra("position", i);
+                context.startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -100,9 +119,16 @@ public class NetVideoPager extends BasePager {
         //2.用第三方解析工具：gson 和 fast_json
         parseJson(json);
 
-        //设置适配器
-        adapter = new MyNetVideoAdapter();
-        lv_video_pager.setAdapter(adapter);
+        if (mediaItems != null && mediaItems.size() > 0) {
+            tv_nomedia.setVisibility(View.GONE);
+            //设置适配器
+            adapter = new MyNetVideoAdapter();
+            lv_video_pager.setAdapter(adapter);
+        } else {
+            tv_nomedia.setVisibility(View.VISIBLE);
+        }
+        pb_loading.setVisibility(View.GONE);
+
 
     }
 
@@ -163,7 +189,16 @@ public class NetVideoPager extends BasePager {
         try {
             mediaItems = new ArrayList<>();
             JSONObject object = new JSONObject(json);
-            JSONArray jsonArray = object.optJSONArray("data");
+//            JSONArray jsonArray = object.optJSONArray("data");
+            JSONArray jsonArray = new JSONArray();
+            jsonArray = object.optJSONArray("data"); //解析json是集合，用optJSONArray赋值
+//            if (object.optJSONArray("data") != null) {
+//                jsonArray.put(object.optJSONArray("data")); //解析json是集合，用optJSONArray赋值
+//            } else {
+//                jsonArray.put(object.optJSONObject("data"));//解析Json是单个，用optJSONObject赋值
+//            }
+
+
 //            JSONArray jsonArray = object.getJSONArray("douga");//不好，易崩溃
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -175,10 +210,11 @@ public class NetVideoPager extends BasePager {
                     //以下为b站的key格式，按需更改
                     //图片
                     String pic = jsonObject.optString("pic");
-                    mediaItem.setImageUrl("pic");
+                    mediaItem.setImageUrl(pic);
                     //视频链接
-                    String short_link = jsonObject.optString("short_link");
-                    mediaItem.setImageUrl(short_link);
+                    String bvid = jsonObject.optString("bvid");
+                    mediaItem.setData("https://17kyun.com/api.php?url=https://www.bilibili.com/video/" + bvid);
+                    Log.d("URL", mediaItem.getData());
                     //视频标题
                     String title = jsonObject.optString("title");
                     mediaItem.setName(title);
@@ -194,4 +230,6 @@ public class NetVideoPager extends BasePager {
             e.printStackTrace();
         }
     }
+
+
 }

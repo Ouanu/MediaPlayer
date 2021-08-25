@@ -72,4 +72,5 @@ public class Utils {
     public long getTotalRxBytes(int uid) {
         return TrafficStats.getTotalRxBytes() == TrafficStats.UNSUPPORTED ? 0 : (TrafficStats.getTotalRxBytes() / 1024);//转为KB
     }
+
 }

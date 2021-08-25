@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
+
 /**
  * 自定义VideoView
  */
@@ -29,4 +30,6 @@ public class VideoView extends android.widget.VideoView {
         params.height = height;
         setLayoutParams(params);
     }
+
+
 }
